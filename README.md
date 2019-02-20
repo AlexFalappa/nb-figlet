@@ -1,6 +1,8 @@
 # NB Figletize
 A NetBeans IDE plugin to create text banners with [FIGlet fonts](http://www.figlet.org/).
 
+![Screenshot](screenshot.png "Screenshot")
+
 
 ## Requirements and Installation
 The plugin works in **NetBeans 8.1 and above** running on a **JDK 7 and above**.
