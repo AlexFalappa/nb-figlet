@@ -25,6 +25,11 @@ import org.netbeans.spi.options.OptionsPanelController;
 import org.openide.util.HelpCtx;
 import org.openide.util.Lookup;
 
+/**
+ * Options panel controller.
+ *
+ * @author Alessandro Falappa
+ */
 @OptionsPanelController.SubRegistration(
         location = "Editor",
         displayName = "#AdvancedOption_DisplayName_Figletize",

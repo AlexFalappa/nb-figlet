@@ -20,6 +20,11 @@ import java.io.IOException;
 import com.github.dtmo.jfiglet.FigFontResources;
 import com.github.dtmo.jfiglet.FigletRenderer;
 
+/**
+ * Plugin settings UI in Option Dialog.
+ *
+ * @author Alessandro Falappa
+ */
 final class FigletizePanel extends javax.swing.JPanel {
 
     private final FigletizeOptionsPanelController controller;

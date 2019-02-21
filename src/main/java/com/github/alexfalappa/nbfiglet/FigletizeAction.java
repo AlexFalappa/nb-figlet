@@ -34,6 +34,11 @@ import org.openide.util.NbBundle.Messages;
 
 import com.github.dtmo.jfiglet.FigletRenderer;
 
+/**
+ * Action that rewrites selected text or current line with FIGlet fonts.
+ *
+ * @author Alessandro Falappa
+ */
 @ActionID(
         category = "Edit",
         id = "com.github.alexfalappa.nbfiglet.FigletAction"
