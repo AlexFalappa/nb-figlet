@@ -10,9 +10,9 @@
     <description>NetBeans IDE plugin to create text banners with FIGlet fonts</description>
 
     <properties>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <netbeans.api.version>RELEASE81</netbeans.api.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<netbeans.api.version>RELEASE82</netbeans.api.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
