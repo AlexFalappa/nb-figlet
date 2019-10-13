@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.text.BadLocationException;
+import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.StyledDocument;
 
@@ -47,8 +48,9 @@ import com.github.dtmo.jfiglet.FigletRenderer;
         displayName = "#CTL_FigletAction"
 )
 @ActionReferences({
-    @ActionReference(path = "Editors/Popup", position = 4010),
-    @ActionReference(path = "Shortcuts", name = "DA-F")
+    @ActionReference(path = "Editors/Popup", position = 4010)
+    ,@ActionReference(path = "Menu/Edit", position = 1470)
+    ,@ActionReference(path = "Shortcuts", name = "DA-F")
 })
 @Messages("CTL_FigletAction=Figletize")
 public final class FigletizeAction implements ActionListener {
@@ -69,29 +71,27 @@ public final class FigletizeAction implements ActionListener {
         }
         final JTextComponent tc = EditorRegistry.lastFocusedComponent();
         final StyledDocument doc = context.getDocument();
-        int lineNo = NbDocument.findLineNumber(doc, tc.getCaretPosition());
-        // find offsets of line where cursor is
-        int lineStart = NbDocument.findLineOffset(doc, lineNo);
-        int lineEnd;
-        try {
-            lineEnd = NbDocument.findLineOffset(doc, lineNo + 1);
-        } catch (IndexOutOfBoundsException ex) {
-            lineEnd = doc.getLength() - 1;
-        }
         // retrieve selection and its boundaries
         String text = tc.getSelectedText();
         int selectionStart = tc.getSelectionStart();
         int selectionLen = tc.getSelectionEnd() - selectionStart;
-        // if no selection operate on entire line
         final boolean hasSelection = text != null;
-        if (!hasSelection) {
-            try {
+        int lineStart = selectionStart;
+        try {
+            Element lineElement = doc.getParagraphElement(tc.getCaretPosition());
+            lineStart = lineElement.getStartOffset();
+            // if no selection operate on entire line
+            if (!hasSelection) {
                 selectionStart = lineStart;
-                selectionLen = lineEnd - 1 - lineStart;
-                text = doc.getText(selectionStart, selectionLen);
-            } catch (BadLocationException ex) {
-                return;
+                selectionLen = lineElement.getEndOffset() - lineElement.getStartOffset() - 1;
+                text = doc.getText(selectionStart, selectionLen).replace("\n", "");
             }
+        } catch (BadLocationException ex) {
+            return;
+        }
+        // if on empty line do nothing
+        if (text.isEmpty()) {
+            return;
         }
         String figletized = figRend.renderText(text);
         // if there was a selection repeat text from beginning of line to beginning of selection on every line
@@ -127,6 +127,7 @@ class DocReplacer implements Runnable {
             doc.remove(start, len);
             doc.insertString(start, replacement, null);
         } catch (BadLocationException ex) {
+            System.out.println(ex);
         }
     }
 
