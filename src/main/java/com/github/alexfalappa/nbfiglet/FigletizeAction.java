@@ -127,7 +127,6 @@ class DocReplacer implements Runnable {
             doc.remove(start, len);
             doc.insertString(start, replacement, null);
         } catch (BadLocationException ex) {
-            System.out.println(ex);
         }
     }
 
